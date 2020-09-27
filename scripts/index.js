@@ -1,4 +1,16 @@
 const guideList = document.querySelector('.guides')
+const loggedinLinks = document.querySelectorAll('.logged-in')
+const loggedoutLinks = document.querySelectorAll('.logged-out')
+
+const setupUi = (user) => {
+    if (user) {
+        loggedinLinks.forEach(item => item.style.display = 'block')
+        loggedoutLinks.forEach(item => item.style.display = 'none')
+    } else {
+        loggedoutLinks.forEach(item => item.style.display = 'block')
+        loggedinLinks.forEach(item => item.style.display = 'none')
+    }
+}
 
 const setupGuides = (data) => {
 

@@ -5,10 +5,30 @@ auth.onAuthStateChanged(user => {
         db.collection('guides').get().then(snapshot => {
             setupGuides(snapshot.docs)
         })
+
+        setupUi(user)
     } else {
         setupGuides([])
+        setupUi()
     }
 })
+
+//CREATE NEW GUIDE
+const createForm = document.querySelector('#create-form');
+createForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    db.collection('guides').add({
+        title: createForm['title'].value,
+        content: createForm['content'].value
+    }).then(() => {
+        const modal = document.querySelector('#modal-create');
+        createForm.reset()
+        M.Modal.getInstance(modal).close()
+    }).catch((err)=> {console.log('You are not permitted to do this ')})
+
+})
+
 
 
 //SIGN UP FUNCTION
